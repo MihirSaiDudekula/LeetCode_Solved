@@ -1,2 +1,2 @@
 # LeetCode_Solved
- A repository to track all the questions i have solved on LeetCode
+A repository to track all the problems solved by me in LeetCode
