@@ -29,6 +29,7 @@ class Solution {
 public static void sortColors(int[] nums) {
     int i,j,temp;
     int n=nums.length;
+    //note - the working style is very similar to that of pattern programs
     for(i=0;i<n-1;i++)
     {
         for(j=0;j<n-i-1;j++)
@@ -42,4 +43,44 @@ public static void sortColors(int[] nums) {
         }
     }
 }
+}
+
+//using recursion
+class   Solution {
+public static int[] bubs(int[] nums,int i,int j) {
+    int n=nums.length;
+    int temp;
+    if(i==n-1)
+    {
+        return nums;
+    }
+    else if(i<n-1)
+    {
+        if(j==n-i-1)
+        {
+            bubs(nums,i+1,0);
+        }
+        if(j<n-i-1)
+        {
+            if(nums[j]>nums[j+1])
+            {
+                temp=nums[j];
+                nums[j]=nums[j+1];
+                nums[j+1]=temp;
+            }
+            bubs(nums,i,j+1);
+        }
+    }
+    return nums;
+
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {8,1,3,7,5,2};
+        int[] res = bubs(arr,0,0);
+        for(int i=0;i<res.length;i++)
+        {
+            System.out.println(res[i]);
+        }       
+    }
 }
