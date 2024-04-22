@@ -29,6 +29,12 @@
 // 0 <= nums[i] <= n
 // All the numbers of nums are unique.
  
+
+
+ // This problem can be solved efficiently by calculating the sum of the range [0, n] using the formula (n * (n + 1)) / 2, then subtracting the sum of the elements in the array from this total sum, leaving you with the missing number.
+
+
+ 
 class Solution {
     public int missingNumber(int[] nums) {
         int i = 0;
