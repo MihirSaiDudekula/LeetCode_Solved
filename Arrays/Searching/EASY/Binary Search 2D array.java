@@ -16,16 +16,39 @@
 
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        for(int i=0;i<matrix.length;i++)
+        //no of rows
+        int nrows = matrix.length;
+        //no of cols
+        int ncols = matrix[0].length;
+
+        int row = 0;
+        int col = ncols-1;
+
+        // together (row,col) is the element pointing to top right corner element of the matrix
+
+        //we will be incrementing rows while decrementing columns
+        while(row<nrows && col>=0)
         {
-            for(int j=0;j<matrix[i].length;j++)
+            if(matrix[row][col]==target)
             {
-                if(matrix[i][j]==target)
-                {
-                    return true;
-                }
+                return true;
+            }
+            if(matrix[row][col]<target)
+            {
+                //it is not in this row,
+                // it is greater than the greatest(rightmost) element of this row,
+                // so it is in the next row
+                row++;
+            }
+            else
+            {
+                //it is in this row, just not in this column
+                //this column is the rightmost, our element is smaller(towards left)
+                //lets go back to the previous column then
+                col--;
             }
         }
+        //not found
         return false;
     }
 }
