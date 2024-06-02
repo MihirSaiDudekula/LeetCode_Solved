@@ -76,6 +76,3 @@ class GFG {
         printArr(arr);
     }
 }
-
-// This code is contributed by Ayush Choudhary
-// Improved by Ajay Virmoti
