@@ -34,7 +34,7 @@ class Solution {
             while(!st.isEmpty() && arr[i] >= st.peek()) {
                 st.pop();
             }
-            if(st.isEmpty()==false)
+            if(!st.isEmpty())
             {
                 nle[i] = st.peek();
             }
