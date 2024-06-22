@@ -62,8 +62,13 @@ public class Solution {
         long result = 0;
         for (int i = 0; i < n; i++) {
             long leftCount = i - PLE[i];
+            // leftCount is The number of elements to the left of arr[i] that can form subarrays with arr[i] as the minimum. This is given by the difference between the current index i and the index of the PLE, PLE[i].
+
             long rightCount = NLE[i] - i;
             result = (result + arr[i] * leftCount * rightCount) % MOD;
+            // For each element arr[i], calculate the total number of subarrays where it is the minimum by multiplying leftCount and rightCount.
+			// The contribution of arr[i] to the overall sum is then arr[i] * leftCount * rightCount.
+			// Sum these contributions for all elements
         }
         
         return (int) result;
