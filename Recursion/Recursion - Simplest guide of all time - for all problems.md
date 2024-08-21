@@ -40,4 +40,19 @@ for (i=0;i<n;i++) {
 }
 ```
 
-9.DP is an extension of multiple recursion. the idea is to memoize existing recursion trees instead of rebuilding them
+9.Backtracking: is the process in which we revert any changes made to the shared data structure (the array, which is modified at each recursion call), to which if we hadd added something , we need to remove before exiting from the stack after the reuired work is completed.
+
+```java
+  combo.add(candidates[i]);
+  backtrack(candidates, combo, sum+ candidates[i], target, result, i);
+  combo.remove(combo.size() - 1);
+```
+
+we make an addition to the combo array,then we remove the addition,
+note the sum variable , it doesnt need subtraction in the backtracking part, simply because, 
+1. its a uniue value for each fn call in the stack
+2. its not modified in the function body,it is modified only when passing, so dont have to change it later 
+
+
+10.DP is an extension of multiple recursion. the idea is to memoize existing recursion trees instead of rebuilding them
+

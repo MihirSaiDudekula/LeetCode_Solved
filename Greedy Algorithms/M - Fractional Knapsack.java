@@ -1,5 +1,6 @@
 // Fractional Knapsack
-// Difficulty: MediumAccuracy: 32.46%Submissions: 253K+Points: 4
+// Difficulty: MediumAccuracy: 32.46% Submissions: 253K+Points: 4
+
 // Given weights and values of n items, we need to put these items in a knapsack of capacity w to get the maximum total value in the knapsack. Return a double value representing the maximum value in knapsack.
 // Note: Unlike 0/1 knapsack, you are allowed to break the item here. The details of structure/class is defined in the comments above the given function.
 
@@ -65,3 +66,44 @@ class Solution{
         
     }
 }
+
+// resolve - better clarity
+class Solution {
+    // Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int w, Item arr[], int n) {
+        // Create a priority queue (max-heap) based on the value-to-weight ratio
+        // PriorityQueue<Item> pq = new PriorityQueue<>(Comparator.comparingDouble(i -> (double) i.value / i.weight).reversed());
+        PriorityQueue<Item> pq = new PriorityQueue<>(new Comparator<Item>() {
+            @Override
+            public int compare(Item a, Item b) {
+                double ratioA = (double) a.value / a.weight;
+                double ratioB = (double) b.value / b.weight;
+                return Double.compare(ratioB, ratioA); // Higher ratio should come first
+            }
+        });
+        for (Item x : arr) {
+            pq.offer(x);
+        }
+
+        double ans = 0.0; // Initialize answer to zero
+        int remain = w; // Remaining capacity of the knapsack
+        
+        while (!pq.isEmpty() && remain > 0) {
+            Item x = pq.poll(); // Get the item with the highest value-to-weight ratio
+            if (x.weight <= remain) {
+                // If the whole item can fit in the knapsack
+                ans += (double) x.value;
+                remain -= x.weight; // Decrease the remaining capacity
+            } else {
+                // If only a fraction of the item can fit
+                double unitVal = (double) x.value / x.weight; // Calculate the value per weight unit
+                ans += (unitVal * remain); // Add the value of the fraction to the answer
+                remain = 0; // The knapsack is now full
+            }
+        }
+        
+        return ans; // Return the maximum value achievable with the given knapsack capacity
+    }
+}
+
+
