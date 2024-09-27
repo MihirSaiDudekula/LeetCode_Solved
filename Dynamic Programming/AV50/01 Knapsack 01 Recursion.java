@@ -18,6 +18,21 @@ public class Knapsack {
         }
     }
 
+    class Solution{
+    public int cutRod(int price[], int n) 
+    {
+        //code here
+        if(n==0)
+        {
+            return 0;
+        }
+        if(n>0)
+        {
+            return Math.max(price[n - 1] + cutRod(price,, n),knapsack(wt, val, W, n - 1));
+        }
+    }
+}
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 

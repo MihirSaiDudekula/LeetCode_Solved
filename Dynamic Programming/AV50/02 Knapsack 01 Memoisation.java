@@ -64,3 +64,32 @@ public class KnapsackDP {
         scanner.close();
     }
 }
+
+class Solution {
+    static int knapSack(int N, int W, int val[], int wt[]) {
+        
+        int[][] t = new int[N+1][W+1];
+        for(int i=0;i<=N;i++)
+        {
+            for(int j=0;j<=W;j++)
+            {
+                if(i == 0 || j == 0) 
+                {
+                    t[i][j] = 0;
+                }
+                if (wt[i - 1] <= j) 
+                {
+                    // Return the maximum of including the last item or excluding it
+                    t[i][j] = Math.max(val[i - 1] + t[i][j-wt[i-1]],t[i-1][j]);
+                } 
+                else 
+                {
+                    // If the last item's weight is more than the current capacity, skip it
+                    t[i][j] = t[i-1][j];
+                }
+
+            }
+        }
+        return t[N][W];   
+    }
+}
