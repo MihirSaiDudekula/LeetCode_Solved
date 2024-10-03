@@ -77,3 +77,30 @@ class Solution {
 
     }
 }
+
+class Solution {
+    public boolean isBalanced(TreeNode root) 
+    {
+        if(root==null)
+        {
+            return true;
+        }
+
+        boolean left = isBalanced(root.left);
+        boolean right = isBalanced(root.right);
+
+    }
+    public static int findHeight(TreeNode root)
+    {
+        if(root==null)
+        {
+            return 0;
+        }
+
+        int left = findHeight(root.left);
+        int right = findHeight(root.right);
+
+        return (Math.abs(left-right));
+
+    }
+}
