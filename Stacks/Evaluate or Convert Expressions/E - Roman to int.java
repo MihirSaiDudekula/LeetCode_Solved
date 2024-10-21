@@ -65,3 +65,41 @@ class Solution {
         return -1;
     }
 }
+
+import java.util.HashMap;
+
+class Solution {
+    public int minimumSwap(String s1, String s2) {
+        int totlen = s1.length() + s2.length();
+        if (totlen % 2 != 0) {
+            return -1;
+        }
+
+        HashMap<Character, Integer> map1 = new HashMap<>();
+        HashMap<Character, Integer> map2 = new HashMap<>();
+
+        setCharCount(s1, map1);
+        setCharCount(s2, map2);
+
+        int countx1 = map1.getOrDefault('x', 0);
+        int county1 = map1.getOrDefault('y', 0);
+        int countx2 = map2.getOrDefault('x', 0);
+        int county2 = map2.getOrDefault('y', 0);
+
+        if(countx1!=countx2 || county1!=county2)
+        {
+            return -1;
+        }
+
+        
+
+
+        return 0; 
+    }
+
+    private static void setCharCount(String s, HashMap<Character, Integer> map) {
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+    }
+}
