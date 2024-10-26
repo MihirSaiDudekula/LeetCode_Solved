@@ -67,7 +67,7 @@ class Solution {
             if (node.right != null) {
                 stack.push(node.right);
             }
-            // result.add(node.val);
+            result.add(node.val);
             if (node.left != null) {
                 stack.push(node.left);
             }
@@ -75,6 +75,32 @@ class Solution {
 
         return result;  
 
+    }
+}
+
+// better code
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            // Push all left nodes to the stack
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            // Pop the node and add to result (the "root" part of the inorder)
+            current = stack.pop();
+            result.add(current.val);
+
+            // Move to the right child of the popped node
+            current = current.right;
+        }
+
+        return result;
     }
 }
 
