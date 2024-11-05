@@ -49,17 +49,17 @@ class Solution {
 
         for (int i = 0; i < noOfNodes; i++) {
             if (colors[i] == -1) {
-                Queue<Integer> queue = new LinkedList<>();
-                queue.offer(i);
+                Queue<Integer> q = new LinkedList<>();
+                q.offer(i);
                 colors[i] = 0;
 
-                while (!queue.isEmpty()) {
-                    int node = queue.poll();
+                while (!q.isEmpty()) {
+                    int node = q.poll();
 
                     for (int neighbor : graph[node]) {
                         if (colors[neighbor] == -1) {
                             colors[neighbor] = 1 - colors[node];
-                            queue.offer(neighbor);
+                            q.offer(neighbor);
                         } 
                         else if (colors[neighbor] == colors[node]) {
                             return false;
