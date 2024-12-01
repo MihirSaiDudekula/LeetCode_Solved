@@ -126,8 +126,9 @@ class Solution
                 }
             }
         }
-        while (!topo.isEmpty()) {
-            ans.add(topo.pop());
+        while (!topo.isEmpty()) 
+        {
+            ans[index++]=topo.pop();
         }
         
         return ans;
