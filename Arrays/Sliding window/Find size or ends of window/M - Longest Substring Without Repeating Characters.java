@@ -111,3 +111,28 @@ class Solution {
         return maxLength;
     }
 }
+
+// even better
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();  // Get the length of the input string
+        int maxLength = 0;  // Variable to store the length of the longest substring
+        int[] lastIndex = new int[128];  // Array to store the last index of each character (ASCII values)
+
+        // Start with two pointers: 'start' for the beginning of the substring, 'end' for the end
+        for (int start = 0, end = 0; end < n; end++) {
+            char currentChar = s.charAt(end);  // Get the character at the 'end' pointer
+
+            // Move the 'start' pointer to the right of the last occurrence of the current character
+            start = Math.max(start, lastIndex[currentChar]);
+
+            // Calculate the maximum length of the substring without repeating characters
+            maxLength = Math.max(maxLength, end - start + 1);
+
+            // Update the last index of the current character
+            lastIndex[currentChar] = end + 1;
+        }
+
+        return maxLength;  // Return the length of the longest substring found
+    }
+}
