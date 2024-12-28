@@ -84,3 +84,27 @@ public static int minInSubtree(TreeNode root)
     int right = minInSubtree(root.right);
     return Math.min(root.val,left.val,right.val);
 }
+
+
+
+class Solution {
+    public boolean canMakeSquare(char[][] grid) 
+    {
+        if((num(grid[0][1]) ^ num(grid[1][0]) ^ num(grid[1][2]) ^ num(grid[2][1]))==0)
+        {
+            if((num(grid[0][0]) ^ num(grid[0][2]) ^ num(grid[1][1]) ^ num(grid[2][0]) ^ num(grid[2][2]))==0)
+            {
+                return false;
+            }
+        }
+        return true;    
+    }
+    public int num(char c)
+    {
+        if(c=='B')
+        {
+            return 0;
+        }
+        return 1;
+    }
+}
