@@ -51,6 +51,12 @@ Decide whether to:
 - Exclude the right boundary (left < right)
 - Handle special cases at the boundaries
 
+
+additionally,
+- once youre at mid, sometimes you might wanna look at mid-1 and mid+1 and understand the direction of growth/ other important aspects
+- sometimes we shold observe start mid and end to find monotonicity
+- sometimes we need to look for patterns between the index of the element and the element itself, this can give a better indication of the growth, shrink, etc.
+
 ---
 
 ### Summary Table of Boundary Conditions:
