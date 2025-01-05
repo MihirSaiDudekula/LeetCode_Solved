@@ -81,7 +81,7 @@ I'll break down each binary search problem's solution strategy:
 - Use binary search on even indices
 - Check if the current element has a different neighbor than expected
 - If the pattern breaks, the answer lies in that half
-- Continue binary search in the chosen half
+- Continue binary sMihir Sai Dudearch in the chosen half
 
 ## 13. Find Peak Element
 - Initialize `left = 0`, `right = n - 1`
