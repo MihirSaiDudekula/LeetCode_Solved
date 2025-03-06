@@ -51,3 +51,39 @@ class Solution {
 // The time complexity of this solution is O(n) where n is the number of nodes in the linked list. This is because we iterate through each node in the linked list once to reverse it.
 
 // The space complexity is O(1) because we are using a constant amount of extra space regardless of the size of the input linked list. We are only using a few extra pointers to keep track of the nodes during the reversal process.
+
+public ListNode reverseList(ListNode head) {
+       ListNode a = null;
+       ListNode b = head;
+
+       if(head==null || head.next==null)
+       {
+        return head;
+       }
+       ListNode c = head.next;
+
+       while(b.next!=null)
+       {
+        b.next=a;
+        a=b;
+        b=c;
+        c=c.next;
+       }
+
+        b.next = a;
+        return b;
+    }
+
+
+public ListNode reverseList(ListNode head) {
+    ListNode prev = null, curr = head;
+
+    while (curr != null) {
+        ListNode nextTemp = curr.next;  
+        curr.next = prev;               
+        prev = curr;                    
+        curr = nextTemp;
+    }
+
+    return prev;
+}
