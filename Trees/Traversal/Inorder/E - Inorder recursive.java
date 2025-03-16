@@ -64,4 +64,23 @@ class Solution {
     }
 }
 
+//alternatively
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<Integer>();
+        rec(ans,root);
+        return ans;
+    }
+    public static void rec(List<Integer> ans,TreeNode root)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        rec(ans,root.left);
+        ans.add(root.val);
+        rec(ans,root.right);        
+    }
+}
 

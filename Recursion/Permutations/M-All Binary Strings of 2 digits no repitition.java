@@ -62,3 +62,36 @@ class Solution {
         }
     }
 }
+
+//far better soln
+class Solution {
+    public List<String> validStrings(int n) {
+        List<String> l = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        rec(l, 0, sb, n);
+        rec(l, 1, sb, n);
+        return l;
+    }
+    
+    public void rec(List<String> l, int dig, StringBuilder cur, int n) {
+        // Append the digit
+        cur.append(dig);
+        
+        // Check if we've reached the target length
+        if(cur.length() == n) {
+            l.add(cur.toString());
+        } else {
+            // Continue recursion if not at target length
+            if(dig == 0) {
+                rec(l, 1, cur, n);
+            } else if(dig == 1) {
+                rec(l, 0, cur, n);
+                rec(l, 1, cur, n);
+            }
+        }
+        
+        // CRITICAL: Remove the digit we added before returning
+        // This is backtracking - undo the change we made in this call
+        cur.deleteCharAt(cur.length() - 1);
+    }
+}

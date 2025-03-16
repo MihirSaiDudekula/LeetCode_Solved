@@ -88,3 +88,24 @@ class Solution {
         return (leftSum+rightSum);        
     }
 }
+
+//optimal
+
+public boolean isBalanced(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        return helper(root) != -1;
+    }
+    private int helper(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int left = helper(root.left);
+        int right = helper(root.right);
+        // if left is unbalanced, or right is unbalanced,or root itself is unbalanced, then return 1.observe that the pattern is similar to traversal - left right root 
+        if(left == -1 || right == -1 || Math.abs(left - right) > 1){
+            return -1;
+        }
+        return Math.max(left, right) + 1;
+    }

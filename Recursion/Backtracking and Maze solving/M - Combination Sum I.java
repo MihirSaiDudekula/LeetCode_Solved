@@ -65,3 +65,67 @@ class Solution {
         }
     }
 }
+
+
+
+//for better understanding
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        // Sort candidates for better handling
+        Arrays.sort(candidates);
+
+        // Initialize with all candidates available
+        List<Integer> initialRem = new ArrayList<>();
+        for (int i = 0; i < candidates.length; i++) {
+            initialRem.add(i);
+        }
+
+        backtrack(candidates, new ArrayList<>(), 0, target, result, initialRem);
+        return result;
+    }
+
+    public void backtrack(int[] candidates, List<Integer> combo, int sum, int target,
+            List<List<Integer>> result, List<Integer> rem) {
+        if (sum > target) {
+            return;
+        }
+
+        if (sum == target) {
+            result.add(new ArrayList<>(combo));
+            return;
+        }
+
+        // Create a copy of rem to avoid modifying the original list
+        List<Integer> remCopy = new ArrayList<>(rem);
+
+        // Process each remaining element
+        for (int i = 0; i < remCopy.size(); i++) {
+            int candidateIndex = remCopy.get(i);
+            int candidateValue = candidates[candidateIndex];
+
+            combo.add(candidateValue);
+
+            // Create new remaining elements list based on current index
+            List<Integer> newRem = new ArrayList<>();
+
+            // If current candidate is at index 0, include indices from 0 to n-1
+            // If at index > 0, include indices from candidateIndex to n-1
+            for (int j = candidateIndex; j < candidates.length; j++) {
+                newRem.add(j);
+            }
+
+            // Recursive call with updated combo and new remaining elements
+            backtrack(candidates, combo, sum + candidateValue, target, result, newRem);
+
+            // Backtrack
+            combo.remove(combo.size() - 1);
+        }
+    }
+}
