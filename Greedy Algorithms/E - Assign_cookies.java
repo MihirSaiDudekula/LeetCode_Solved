@@ -76,4 +76,29 @@ public class Solution {
         return r;
     }
 }
-                            
+
+// cleaner solution
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int greediestKidIndex = g.length-1;
+        int largestCookieIndex = s.length-1;
+        int count = 0;
+        while(greediestKidIndex>=0 && largestCookieIndex>=0)
+        {
+            if(s[largestCookieIndex] >= g[greediestKidIndex])
+            {
+                count++;
+                largestCookieIndex--;
+                greediestKidIndex--;
+            }
+            else
+            {
+                greediestKidIndex--;
+            }
+        }
+        
+        return count;
+    }
+}
