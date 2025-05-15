@@ -90,6 +90,150 @@ public class RecursionExample {
 
 ---
 
+# THE ONE QUESTION THAT CLARIFIES A LOT :
+
+You have n dice, and each dice has k faces numbered from 1 to k.
+
+Given three integers n, k, and target, return the number of possible ways (out of the kn total ways) to roll the dice, so the sum of the face-up numbers equals target
+
+- basically, you must use one number per dice
+- cannot take 2 nums from 1 dice
+- must take all dies, necessarily, cannot omit the op of any die or consider it 0
+# Detailed Explanation of the Dice Sum Solution
+
+## Overview of the Solution
+
+This solution elegantly solves the problem of finding the number of ways to roll `n` dice (each with `k` faces) to get a sum of `target`. Let's break down each component and understand why it works so well.
+
+## The Main Function: `numRollsToTarget`
+
+```java
+public int numRollsToTarget(int n, int k, int target) {
+    int ways = 0;
+    for(int i=1; i<=k; i++) {
+        ways = (ways + rec(k, n, i, 1, target)) % mod;
+    }
+    return ways;
+}
+```
+
+**What it does:**
+1. Initializes a counter `ways` to track the total number of ways
+2. Iterates through all possible values for the first die (1 to k)
+3. For each value of the first die, calls the recursive function to find all ways to get the remaining sum with the remaining dice
+4. Accumulates the results while taking modulo to prevent integer overflow
+
+**Brilliance in design:**
+- Handles the first die separately to kickstart the recursion process
+- This approach avoids one level of recursion by making the first decision upfront
+- By starting with an actual value for the first die, we're already working with a concrete path toward our target
+
+## The Recursive Function: `rec`
+
+```java
+public int rec(int faces, int dies, int runsum, int elems, int target) {
+    if(runsum > target) {
+        return 0;
+    }
+    
+    if(elems == dies) {
+        if(runsum == target) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    int ways = 0;
+    for(int i=1; i<=faces; i++) {
+        ways = (ways + rec(faces, dies, runsum+i, elems+1, target)) % mod;
+    }
+    
+    return ways;
+}
+```
+
+**Parameters explained:**
+- `faces`: The number of faces on each die (k)
+- `dies`: Total number of dice (n)
+- `runsum`: Current running sum of the dice values so far
+- `elems`: Number of dice that have been rolled so far
+- `target`: The target sum we're trying to reach
+
+**Base cases:**
+1. If `runsum > target`, we return 0 since we've already exceeded our target (optimization)
+2. If `elems == dies` (used all dice), we check if we've hit our target:
+   - If `runsum == target`, we found a valid way (return 1)
+   - Otherwise, we didn't reach the target (return 0)
+
+**Recursive case:**
+- For each possible face value (1 to k) on the current die
+- Recursively count ways by adding the current face value to the running sum
+- Increment the dice counter by 1
+- Accumulate the total ways while taking modulo
+
+## The Brilliance of Using a Ways Accumulator
+
+The local `ways` variable inside the recursive function acts as a "sum accumulator" which is particularly brilliant for this problem for several reasons:
+
+1. **Efficient Counting**: Instead of storing all possible combinations in memory (e.g., using an ArrayList), we simply count them. This is much more memory-efficient.
+
+2. **Incremental Calculation**: As each recursive call returns its count, we add it to our running total. This builds up the solution piece by piece.
+
+3. **Modular Arithmetic**: By applying the modulo operation at each step, we prevent integer overflow while calculating large numbers.
+
+4. **Avoids Backtracking Complexity**: Traditional backtracking would require maintaining a list of chosen values, but here we just track the sum and dice count, which is much cleaner.
+
+## How the Ways Variable Is Different
+
+The `ways` variable is fundamentally different from the other parameters:
+
+- It's not a parameter passed to the recursive function but a local variable within it
+- It accumulates results from all possible choices at the current decision point
+- It represents the total count of valid paths from the current state to the goal state
+- Unlike `faces`, `dies`, `runsum`, and `elems` which describe the current state of the recursion, `ways` tracks the result of all future paths from that state
+
+## Could We Use a Void-Type Recursive Function?
+
+Yes, we could implement this using a void-type recursive function, but it would require:
+
+1. A global/class-level variable to accumulate the count
+2. Modifying this variable in-place when valid combinations are found
+
+For example:
+```java
+class Solution {
+    int mod = 1_000_000_007;
+    int totalWays = 0;
+    
+    public int numRollsToTarget(int n, int k, int target) {
+        totalWays = 0;
+        for(int i=1; i<=k; i++) {
+            recVoid(k, n, i, 1, target);
+        }
+        return totalWays;
+    }
+    
+    public void recVoid(int faces, int dies, int runsum, int elems, int target) {
+        if(runsum > target) {
+            return;
+        }
+        
+        if(elems == dies) {
+            if(runsum == target) {
+                totalWays = (totalWays + 1) % mod;
+            }
+            return;
+        }
+        
+        for(int i=1; i<=faces; i++) {
+            recVoid(faces, dies, runsum+i, elems+1, target);
+        }
+    }
+}
+```
+
+
 ## **Building Intuition for Backtracking and Tree Problems**  
 
 ### **Backtracking Example: Generating All Subsequences**
@@ -106,13 +250,10 @@ public class Subsets {
         }
         
         // Exclude the current element
-        generateSubsets(nums, index + 1, current, result);
-        
+        generateSubsets(nums, index + 1, current, result);     
         // Include the current element
         current.add(nums.get(index));
-        generateSubsets(nums, index + 1, current, result);
-        
-        // Backtrack (remove last added element)
+        generateSubsets(nums, index + 1, current, result);    // Backtrack (remove last added element)
         current.remove(current.size() - 1);
     }
 
