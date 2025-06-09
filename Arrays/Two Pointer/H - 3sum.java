@@ -1,3 +1,4 @@
+1
 // 15. 3Sum
 // Solved
 // Medium

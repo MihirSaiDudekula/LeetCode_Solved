@@ -1,4 +1,4 @@
-# Variable-Sized Sliding Window Pattern Guide
+ # Variable-Sized Sliding Window Pattern Guide
 
 ## 1. Problem Identification
 Key indicators that a problem requires the variable-sized sliding window pattern:
