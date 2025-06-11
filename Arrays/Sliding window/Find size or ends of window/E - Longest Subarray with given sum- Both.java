@@ -15,4 +15,25 @@
 // Explanation: 
 // There is no such sub-array with sum 6.
 
- 
+ import java.util.HashMap;
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int count = 0, sum = 0;
+        HashMap<Integer, Integer> prefixSumFreq = new HashMap<>();
+        prefixSumFreq.put(0, 1); // base case: sum of 0 has occurred once
+
+        for (int num : nums) {
+            sum += num;
+
+            if (prefixSumFreq.containsKey(sum - k)) {
+                count += prefixSumFreq.get(sum - k);
+            }
+
+            prefixSumFreq.put(sum, prefixSumFreq.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
+}
+
