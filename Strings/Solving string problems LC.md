@@ -386,3 +386,116 @@ String filtered = sb.toString();  // "a1b2c3"
 ---
 
 
+Absolutely, Mihir! Let’s break down **basic regex knowledge** (in Java) in a simple way and show how you can **pair it with Java string functions** for real-world LeetCode use cases like validation, filtering, and parsing.
+
+---
+
+# 🧵 A Beginner-Friendly Guide to Regex in Java (For LeetCode)
+
+---
+
+## ✅ What is Regex?
+
+**Regex (Regular Expression)** is a powerful mini-language used to **define patterns** in strings — useful for **matching**, **searching**, **splitting**, or **replacing** parts of strings.
+
+In Java, regex is supported in:
+
+* `String` methods like `.matches()`, `.split()`, `.replaceAll()`, `.replaceFirst()`
+* The `Pattern` and `Matcher` classes (for more complex use cases)
+
+---
+
+## 🧰 Useful Java String Methods That Support Regex
+
+| Method           | Purpose                                          | Supports Regex? | Example                                     |
+| ---------------- | ------------------------------------------------ | --------------- | ------------------------------------------- |
+| `matches()`      | Checks if the **whole string** matches a pattern | ✅               | `"123".matches("\\d+")` → `true`            |
+| `replaceAll()`   | Replaces **all substrings** matching regex       | ✅               | `"a1b2".replaceAll("\\d", "")` → `"ab"`     |
+| `replaceFirst()` | Replaces **first substring** matching regex      | ✅               | `"a1b2".replaceFirst("\\d", "")` → `"ab2"`  |
+| `split()`        | Splits string using regex as delimiter           | ✅               | `"a,b;c".split("[,;]")` → `["a", "b", "c"]` |
+
+---
+
+## 🧠 Basic Regex Concepts
+
+Here’s a **cheat sheet of common patterns** you'll actually use on LeetCode:
+
+| Pattern | Meaning                            | Example Match               |
+| ------- | ---------------------------------- | --------------------------- |
+| `.`     | Any character                      | `"a"`, `"1"`, `"!"`         |
+| `\d`    | Digit (0-9)                        | `"0"`, `"7"`                |
+| `\D`    | Non-digit                          | `"a"`, `"@"`                |
+| `\w`    | Word character (a-z, A-Z, 0-9, \_) | `"x"`, `"9"`, `"_"`         |
+| `\W`    | Non-word character                 | `"!"`, `"#"`                |
+| `\s`    | Whitespace                         | `" "`, `"\t"`               |
+| `\S`    | Non-whitespace                     | `"a"`, `"1"`                |
+| `^`     | Start of string                    | `^a` → matches "apple"      |
+| `$`     | End of string                      | `e$` → matches "apple"      |
+| `*`     | Zero or more times                 | `a*` → `""`, `"a"`, `"aaa"` |
+| `+`     | One or more times                  | `a+` → `"a"`, `"aaa"`       |
+| `?`     | Zero or one time                   | `a?` → `""`, `"a"`          |
+| `[]`    | Any one of characters inside       | `[aeiou]` → `"a"`, `"e"`    |
+| `[^]`   | Not one of the characters          | `[^aeiou]` → `"b"`          |
+| `( )`   | Grouping                           | `(\d+)-(\d+)`               |
+| `{n}`   | Exactly n times                    | `\d{3}` → `"123"`           |
+| `{n,}`  | At least n times                   | `\d{2,}` → `"12"`           |
+| `{n,m}` | Between n and m times              | `\d{2,4}` → `"123"`         |
+
+> **Important:** In Java, you must **escape backslashes**:
+>
+> * Use `\\d` instead of `\d`,
+> * Use `\\s` instead of `\s`, etc.
+
+---
+
+## 📌 Examples with Regex + Java String Methods
+
+### ✅ 1. **Check if a string is a number**
+
+```java
+String s = "12345";
+boolean isNumber = s.matches("\\d+");  // true
+```
+
+### ✅ 2. **Remove all digits from a string**
+
+```java
+String s = "a1b2c3";
+String result = s.replaceAll("\\d", "");  // "abc"
+```
+
+### ✅ 3. **Replace first digit only**
+
+```java
+String s = "1a2b3c";
+String result = s.replaceFirst("\\d", "");  // "a2b3c"
+```
+
+### ✅ 4. **Split string on multiple delimiters**
+
+```java
+String data = "a,b;c.d";
+String[] parts = data.split("[,;.]");  // ["a", "b", "c", "d"]
+```
+
+### ✅ 5. **Remove non-alphanumeric characters (clean string)**
+
+```java
+String dirty = "he@llo!2024";
+String clean = dirty.replaceAll("[^a-zA-Z0-9]", "");  // "hello2024"
+```
+
+---
+
+## 🧠 When to Use Regex on LeetCode?
+
+| Use Case                     | Useful Regex Pattern           | Method         |
+| ---------------------------- | ------------------------------ | -------------- |
+| Validate digit-only string   | `"\\d+"`                       | `matches()`    |
+| Remove punctuation           | `"[^a-zA-Z0-9]"`               | `replaceAll()` |
+| Tokenize based on delimiters | `"[,;\\s]+"`                   | `split()`      |
+| Check email/password format  | Complex regex                  | `matches()`    |
+| Keep only letters/digits     | `"[^\\w]"` or `"[^a-zA-Z0-9]"` | `replaceAll()` |
+
+---
+
